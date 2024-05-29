@@ -23,7 +23,7 @@ func DoTransform(text string) (string, error) {
 		Messages: []openai.ChatCompletionMessage{
 			{
 				Role:    openai.ChatMessageRoleSystem,
-				Content: "Provide only the answer itself, without adding comments. Do only what is asked and nothing more.",
+				Content: "Сделай только то что тебя просят и не больше. В ответе должно быть только то о чём попросили, без пояснений, лишних кавычек и т.д. Внимательно следуй инструкциям.",
 			},
 		},
 	}
@@ -44,7 +44,7 @@ func DoTransform(text string) (string, error) {
 func DoGenerate(text string) (string, error) {
 
 	req := openai.ChatCompletionRequest{
-		Model: openai.GPT4,
+		Model: "gpt-4o", //openai.GPT4,
 		Messages: []openai.ChatCompletionMessage{
 			{
 				Role:    openai.ChatMessageRoleSystem,

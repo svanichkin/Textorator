@@ -21,9 +21,15 @@ func checkInt(s string) int64 {
 
 func checkType(c *gin.Context) string {
 
-	if len(c.Query("type")) == 0 {
+	var t string
+	if c.Request.Method == "GET" {
+		t = c.Query("type")
+	} else if c.Request.Method == "POST" {
+		t = c.PostForm("type")
+	}
+	if len(t) == 0 {
 		return "json"
 	}
-	return c.Query("type")
+	return t
 
 }

@@ -58,23 +58,22 @@ func GetFromCache(cid string) string {
 	for _, file := range files {
 		if !file.IsDir() {
 			filename := file.Name()
-			oldFilename := strings.TrimSuffix(filename, filepath.Ext(filename))
+			pathfile := folderPath + filename
 
 			// Check filename
 
-			_, t, err := fromFilename(oldFilename)
+			_, t, err := fromFilename(strings.TrimSuffix(filename, filepath.Ext(filename)))
 			if err != nil {
 				continue
 			}
 
 			// Get cached content
 
-			content, _ := os.ReadFile(file.Name())
+			content, _ := os.ReadFile(pathfile)
 
 			// Renew filename
 
-			newFilename := toFilename(t)
-			os.Rename(folderPath+oldFilename+".txt", folderPath+newFilename+".txt")
+			os.Rename(pathfile, folderPath+toFilename(t)+".txt")
 
 			return string(content)
 		}
